@@ -17,10 +17,11 @@ Daftar Produk
             <div class="btn-group">
                 <button class="btn btn-success btn-xs btn-flat" onclick="addForm('{{ route('produk.store') }}')"><i class="fa fa-plus-circle"></i>  Tambah</button>
                 <button class="btn btn-danger btn-xs btn-flat" onclick="deleteSelected('{{ route('produk.delete_selected') }}')"><i class="fa fa-trash"></i>  Hapus</button>
+                <button class="btn btn-info btn-xs btn-flat" onclick="cetakBarcode('{{ route('produk.cetak_barcode') }}')"><i class="fa fa-barcode"></i>  Cetak Barcode</button>
             </div>
         </div>
         <div class="box-body table-responsive">
-            <form action="" class="form-produk">
+            <form action="" method="post" class="form-produk">
                 @csrf
                 <table class="table table-striped table-bordered">
                     <thead>
@@ -158,6 +159,21 @@ Daftar Produk
         }else{
             alert('Pilih data yang akan dihapus');
             return;
+        }
+    }
+
+    function cetakBarcode(url){
+        if($('input:checked').length < 1){
+            alert('Pilih data yang akan dicetak');
+            return;
+        }else if($('input:checked').length < 3){
+            alert('Pilih minimal 3 data untuk dicetak');
+            return;      
+        }else{
+            $('.form-produk')
+            .attr('action', url)
+            .attr('target', '_blank')
+            .submit();
         }
     }
 </script>
